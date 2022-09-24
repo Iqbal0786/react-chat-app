@@ -10,6 +10,9 @@ app.use(router)
 app.use(cors())
 io.on("connection",(socket)=>{
     console.log("A new user is connected!!");
+    socket.on("join",({name,room})=>{
+        //console.log(name,room)
+    })
     socket.on("disconnect" ,()=>{
         console.log("User had left !!");
     })
