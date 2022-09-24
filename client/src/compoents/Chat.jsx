@@ -2,14 +2,18 @@ import React from 'react'
 import { useEffect } from 'react'
 import queryString from "query-string"
 import { useLocation } from 'react-router-dom'
+import io from "socket.io-client";
+let socket;
 export default function Chat({location}) {
     const {search} =useLocation();
     const {name,room} = queryString.parse(search);
+    const ENDPOINT='localhost:5000'
     console.log(name,room);
     useEffect(()=>{
-   
-        
-    },[])
+      socket= io(ENDPOINT);
+      console.log(socket)
+    //  socket.emit("join",{name,room})
+    },[ENDPOINT,search])
   return (
     <div>Chat</div>
   )
