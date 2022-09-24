@@ -15,7 +15,7 @@ export default function Chat() {
       socket.emit("join",{name,room})
 
       return ()=>{
-        socket.emit("disconnect");
+        // socket.emit("disconnect");
         socket.off()
       }
     },[ENDPOINT,search]);
