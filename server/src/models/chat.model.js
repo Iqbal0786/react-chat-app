@@ -1,6 +1,6 @@
 const mongoose= require("mongoose");
 
-const roomSchema= new mongoose.Schema({
+const chatSchema= new mongoose.Schema({
        user_id:{type:String,required:true},
        userName:{type:String,required:true},
        roomName:{type:String,required:true}
@@ -9,4 +9,4 @@ const roomSchema= new mongoose.Schema({
     timestamps:true
 })
 
-module.exports= mongoose.model("rooms",roomSchema)
+module.exports= mongoose.model("chats",chatSchema)
