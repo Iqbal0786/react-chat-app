@@ -1,7 +1,11 @@
 import React from 'react'
+import { useState } from 'react'
 import {Button, Card ,Form} from "react-bootstrap"
+import { Link } from 'react-router-dom';
 
 export default function Join() {
+    const [name,setName]=useState('');
+    const [room,setRoom]=useState("")
   return (
     <>
     <Card  style={{width:"500px" , height:"300px" , margin:"auto", marginTop:"5%"}}>
@@ -9,13 +13,19 @@ export default function Join() {
      <Form style={{width:"70%" , marginLeft:"50px" ,marginTop:"10px"}}>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Your Name </Form.Label>
-        <Form.Control type="email" placeholder="Enter your name ..." />
+        <Form.Control type="email" placeholder="Enter your name ..." onChange={(e)=>{
+            setName(e.target.value)
+        }} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Room</Form.Label>
-        <Form.Control type="email" placeholder="Enter room name to join ..." />
+        <Form.Control type="email" placeholder="Enter room name to join ..."  onChange={(e)=>{
+            setRoom(e.target.value)
+        }}/>
       </Form.Group>
-      <Button>Join Room </Button>
+      <Link onClick={(e)=>!name || !room?e.preventDefault():null} to={`/chat?name=${name}&room=${room}`}>
+      <Button type='submit'>Join Room </Button>
+      </Link>
     </Form>
       
     </Card>
