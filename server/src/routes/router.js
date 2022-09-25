@@ -17,6 +17,29 @@ router.get("/rooms" , async (req,res)=>{
     }
     
 })
+router.post("/rooms" , async (req,res)=>{
+    try {
+        
+        const room= await Room.create(req.body);
+        return res.status(201).send(room)
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).send({message:error.message})
+    }
+    
+})
+
+// router.delete("/rooms" , async (req,res)=>{
+//     try {
+        
+//         const room= await Room.remove({});
+//         return res.status(201).send(room)
+//     } catch (error) {
+//         console.log(error.message)
+//         res.status(400).send({message:error.message})
+//     }
+    
+// })
 
 
 
