@@ -1,6 +1,7 @@
 const express= require("express");
 const socketio= require("socket.io");
 const http= require("http")
+const connect= require("./configs/db")
 const app = express();
 const router= require("./routes/router");
 const cors= require("cors");
@@ -18,6 +19,11 @@ io.on("connection",(socket)=>{
     })
 })
 
-server.listen(process.env.PORT || 5000, ()=>{
-    console.log("server is live on port 5000");
+server.listen(process.env.PORT || 5000, async()=>{
+     try {
+         await connect()
+         console.log("server is live on port 5000");
+     } catch (error) {
+        console.log(error.message)
+     }
 })
