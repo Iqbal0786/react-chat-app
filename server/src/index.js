@@ -4,6 +4,7 @@ const http= require("http")
 const connect= require("./configs/db")
 const app = express();
 const router= require("./routes/router");
+const Message= require("./models/message.model")
 const cors= require("cors");
 const  server= http.createServer(app); // createing server
 const io= socketio(server);
@@ -15,8 +16,12 @@ app.use(router)
 
 io.on("connection",(socket)=>{
     console.log("A new user is connected!!");
+ 
     socket.on("join",({name,room})=>{
         //console.log(name,room)
+        Message.find().populate({path:"chat_id", select:["userName","roomName","user_id"]}).lean().exec().then((res)=>{
+            io.emit("roomsData", res.filter(item=>item.chat_id.userName===name && item.chat_id.roomName===room))
+        })
     })
     socket.on("disconnect" ,()=>{
         console.log("User had left !!");

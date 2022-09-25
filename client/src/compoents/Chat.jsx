@@ -13,6 +13,9 @@ export default function Chat() {
       socket= io(ENDPOINT,{ transports : ['websocket'] });
       console.log(socket)
       socket.emit("join",{name,room})
+      socket.on("roomsData" , (data)=>{
+        console.log(data)
+      })
 
       return ()=>{
         // socket.emit("disconnect");
