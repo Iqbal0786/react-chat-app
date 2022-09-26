@@ -40,8 +40,9 @@ export default function Chat() {
          setTimeout(() => {
           alert("Room or userName not found");
           navigate('/')
+          return
          }, 2000);
-        return 
+        
       }
       setRoomData(data);
       let [chat_id]= data.filter((user)=>{
@@ -102,7 +103,8 @@ export default function Chat() {
           </Button>
         </Stack>
       </Stack>
-    </Container>
+    </Container> 
+   
   </>
   );
 }
