@@ -37,9 +37,12 @@ export default function Chat() {
         <Card style={{ width: "100%", height: "450px", padding: "15px" }}>
           {
             roomData.map((msg)=>{
-              return (
-                <Card.Text style={{ marginLeft: "auto" }}>{msg.body}</Card.Text>
-              )
+              let currentUser=msg.chat_id.userName===name
+               return (
+                  
+                <Card.Text>{msg.body}</Card.Text>
+                   
+               )
             })
           }
         </Card>

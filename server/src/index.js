@@ -20,7 +20,7 @@ io.on("connection",(socket)=>{
     socket.on("join",({name,room})=>{
         //console.log(name,room)
         Message.find().populate({path:"chat_id", select:["userName","roomName","user_id"]}).lean().exec().then((res)=>{
-            io.emit("roomsData", res.filter(item=>item.chat_id.userName===name && item.chat_id.roomName===room))
+            io.emit("roomsData", res.filter(item=> item.chat_id.roomName===room))
         })
     })
     socket.on("disconnect" ,()=>{
