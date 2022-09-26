@@ -71,9 +71,11 @@ export default function Chat() {
   <>
     <Container className="mt-5">
       <Stack gap={3}>
-        <div className="bg-light border" style={{ textAlign: "center" }}>
-          Welcome to CodingMeme{" "}
-        </div>
+       {roomData.length ? <div className="bg-light border" style={{ textAlign: "center" }}>
+          Welcome to {roomData[0].chat_id.roomName} 
+        </div>:<div className="bg-light border" style={{ textAlign: "center" }}>
+          Room not found !!
+        </div>}
         <Card style={{ width: "100%", height: "450px", padding: "15px"  , overflow:"auto"}}>
           { roomData.length==0 && <Card.Text>could not found chat messages ???</Card.Text>}
           {
