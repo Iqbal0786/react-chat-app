@@ -12,14 +12,35 @@ export default function Chat() {
   const { search } = useLocation();
   const { name, room } = queryString.parse(search);
   const [roomData, setRoomData] = useState([]);
+  const [inputMessage,setInputMessage]=useState("");
+  const [chatId,setChatId]=useState("")
   const ENDPOINT = "localhost:5000";
-  console.log(name, room);
+
+  const sendMessage=(e)=>{
+    e.preventDefault();
+    socket.emit("sendMessage" ,{
+     body:inputMessage,
+     chat_id:chatId
+    });
+
+    socket.on("roomsData",(data)=>{
+      console.log(' new data after sending messages',data);
+    })
+    
+}
+  // console.log(name, room);
   useEffect(() => {
     socket = io(ENDPOINT, { transports: ["websocket"] });
     console.log(socket);
     socket.emit("join", { name, room });
     socket.on("roomsData", (data) => {
       setRoomData(data);
+      let [chat_id]= data.filter((user)=>{
+          if(user.chat_id.userName==name){
+            return user.chat_id
+          }
+      })
+       setChatId(chat_id.chat_id._id)
       console.log(data);
     });
 
@@ -27,8 +48,14 @@ export default function Chat() {
       // socket.emit("disconnect");
       socket.off();
     };
-  }, [ENDPOINT, search]);
+  }, [ENDPOINT, search ]);
 
+  // useEffect(()=>{
+  //   socket.on("roomsData", (data) => {
+  //     setRoomData(data);
+  //   });
+  // },[sendMessage])
+ //console.log(chatId)
   return (
     <Container className="mt-5">
       <Stack gap={3}>
@@ -52,8 +79,13 @@ export default function Chat() {
             id="floatingInputCustom"
             type="text"
             placeholder="type messages....."
+            onChange={(e)=>{
+              setInputMessage(e.target.value)
+            }}
           />
-          <Button style={{ width: "100px", padding: "5px" }}>
+          <Button style={{ width: "100px", padding: "5px" }}
+           onClick={sendMessage}
+          >
             Send
             <FaPaperPlane style={{ marginLeft: "5px" }} />
           </Button>
