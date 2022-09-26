@@ -6,6 +6,7 @@ import { Stack, Container, Form, Button, Card } from "react-bootstrap";
 import { FaPaperPlane } from "react-icons/fa";
 import io from "socket.io-client";
 import { useState } from "react";
+import MessageText from "./MessageText";
 let socket;
 export default function Chat() {
   const { search } = useLocation();
@@ -40,7 +41,7 @@ export default function Chat() {
               let currentUser=msg.chat_id.userName===name
                return (
                   
-                <Card.Text>{msg.body}</Card.Text>
+               <MessageText msg={msg} currentUser={currentUser}/>
                    
                )
             })
