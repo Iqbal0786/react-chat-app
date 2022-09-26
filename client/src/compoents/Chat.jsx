@@ -75,6 +75,7 @@ export default function Chat() {
           Welcome to CodingMeme{" "}
         </div>
         <Card style={{ width: "100%", height: "450px", padding: "15px"  , overflow:"auto"}}>
+          { roomData.length==0 && <Card.Text>could not found chat messages ???</Card.Text>}
           {
             roomData.map((msg)=>{
               let currentUser=msg.chat_id.userName===name
