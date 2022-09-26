@@ -22,6 +22,12 @@ io.on("connection",(socket)=>{
         Message.find().populate({path:"chat_id", select:["userName","roomName","user_id"]}).lean().exec().then((res)=>{
             io.emit("roomsData", res.filter(item=> item.chat_id.roomName===room))
         })
+    });
+    socket.on("sendMessage",(message)=>{
+        const msg= new Message(message);
+         msg.save().then(()=>{
+            console.log("new message added");
+         })
     })
     socket.on("disconnect" ,()=>{
         console.log("User had left !!");
