@@ -27,6 +27,9 @@ io.on("connection",(socket)=>{
         const msg= new Message(message);
          msg.save().then(()=>{
             console.log("new message added");
+            Message.find({chat_id:message.chat_id}).populate({path:"chat_id", select:["userName","roomName","user_id"]}).lean().exec().then((res)=>{
+                io.emit("updatedRoomsData", res)
+            })
          })
     })
     socket.on("disconnect" ,()=>{
