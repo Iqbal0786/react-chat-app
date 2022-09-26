@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import queryString from "query-string"
 import { useLocation } from 'react-router-dom'
-import {Stack , Container ,Form, Button} from "react-bootstrap"
+import {Stack , Container ,Form, Button , Card} from "react-bootstrap"
 import io from "socket.io-client";
 let socket;
 export default function Chat() {
@@ -29,16 +29,9 @@ export default function Chat() {
 
 <Stack gap={3}>
     <div className="bg-light border" style={{textAlign:"center"}}>Welcome to  CodingMeme </div>
-    <Form.Floating className="mb-3">
-        <Form.Control
-          id="floatingInputCustom"
-          type="text"
-          placeholder="messages"
-          disabled
-          value={"hii am iqbal"}
-          style={{height:"400px"}}
-        />
-      </Form.Floating>
+     <Card style={{width:"100%" , height:"450px" , padding:"15px"}}>
+       <Card.Text style={{marginLeft:"auto"}}>Hii I am iqbal</Card.Text>
+     </Card>
       <Stack direction="horizontal" gap={3}>
       <Form.Control
           id="floatingInputCustom"
