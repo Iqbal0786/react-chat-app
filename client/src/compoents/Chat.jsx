@@ -23,8 +23,9 @@ export default function Chat() {
      chat_id:chatId
     });
 
-    socket.on("roomsData",(data)=>{
+    socket.on("updatedRoomsData",(data)=>{
       console.log(' new data after sending messages',data);
+      setRoomData(data)
     })
     
 }
@@ -62,7 +63,7 @@ export default function Chat() {
         <div className="bg-light border" style={{ textAlign: "center" }}>
           Welcome to CodingMeme{" "}
         </div>
-        <Card style={{ width: "100%", height: "450px", padding: "15px" }}>
+        <Card style={{ width: "100%", height: "450px", padding: "15px"  , overflow:"auto"}}>
           {
             roomData.map((msg)=>{
               let currentUser=msg.chat_id.userName===name
