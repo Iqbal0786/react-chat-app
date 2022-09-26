@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import queryString from "query-string"
 import { useLocation } from 'react-router-dom'
 import {Stack , Container ,Form, Button , Card} from "react-bootstrap"
-
+import {FaPaperPlane}  from "react-icons/fa"
 import io from "socket.io-client";
 let socket;
 export default function Chat() {
@@ -39,8 +39,10 @@ export default function Chat() {
           type="text"
           placeholder="type messages....."
         />
-        <Button>
+        <Button style={{width:"100px" , padding:"5px"}}>
           Send
+          <FaPaperPlane style={{marginLeft:"5px"}}/>
+         
         </Button>
     </Stack>
   </Stack>
