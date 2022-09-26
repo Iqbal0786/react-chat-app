@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import queryString from "query-string";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Stack, Container, Form, Button, Card } from "react-bootstrap";
 import { FaPaperPlane } from "react-icons/fa";
 import io from "socket.io-client";
@@ -15,6 +15,7 @@ export default function Chat() {
   const [inputMessage,setInputMessage]=useState("");
   const [chatId,setChatId]=useState("")
   const ENDPOINT = "localhost:5000";
+  const  navigate=useNavigate()
 
   const sendMessage=(e)=>{
     e.preventDefault();
@@ -35,6 +36,13 @@ export default function Chat() {
     console.log(socket);
     socket.emit("join", { name, room });
     socket.on("roomsData", (data) => {
+      if(data.length==0){
+         setTimeout(() => {
+          alert("Room or userName not found");
+          navigate('/')
+         }, 2000);
+        return 
+      }
       setRoomData(data);
       let [chat_id]= data.filter((user)=>{
           if(user.chat_id.userName==name){
@@ -58,6 +66,8 @@ export default function Chat() {
   // },[sendMessage])
  //console.log(chatId)
   return (
+    
+  <>
     <Container className="mt-5">
       <Stack gap={3}>
         <div className="bg-light border" style={{ textAlign: "center" }}>
@@ -93,5 +103,6 @@ export default function Chat() {
         </Stack>
       </Stack>
     </Container>
+  </>
   );
 }

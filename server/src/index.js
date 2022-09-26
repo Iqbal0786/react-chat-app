@@ -21,6 +21,8 @@ io.on("connection",(socket)=>{
         //console.log(name,room)
         Message.find().populate({path:"chat_id", select:["userName","roomName","user_id"]}).lean().exec().then((res)=>{
             io.emit("roomsData", res.filter(item=> item.chat_id.roomName===room))
+        }).catch((err)=>{
+            console.log(err.message);
         })
     });
     socket.on("sendMessage",(message)=>{
