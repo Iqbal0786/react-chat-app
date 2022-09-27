@@ -29,7 +29,11 @@ export default function CreateUser({ show, modalCloseHanlder }) {
   }
  const createAccountHandler=(e)=>{
          e.preventDefault();
-         
+         if(userInput.name=="" || userInput.roomName==""){
+            alert("Please filled details !!")
+            return 
+         }
+         socket.emit("createUser",userInput)
  }
   console.log(userInput);
 
