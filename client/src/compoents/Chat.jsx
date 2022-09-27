@@ -103,6 +103,11 @@ export default function Chat() {
             onChange={(e)=>{
               setInputMessage(e.target.value)
             }}
+            onKeyPress={(e)=>{
+              if(e.key==="Enter"){
+                sendMessage(e)
+              }
+             }}
             
           />
           <Button style={{ width: "100px", padding: "5px" }}
