@@ -45,20 +45,6 @@ export default function Chat() {
         
       }
       setRoomData(data);
-        console.log("room data",data);
-        // getting chat_id from the chat message
-      // let [chat_id]= data.filter((user)=>{
-      //     if(user.chat_id.userName==name){
-      //       return user.chat_id
-      //     }
-      // });
-      // // // emitting getChatId event
-      // // socket.emit("getChatId" , name);
-      // // //getting chatId 
-      // // socket.on("UserId",(chatId)=>{
-      // //   console.log("chat id from db" , chatId)
-      // // })
-      //  setChatId(chat_id.chat_id._id)
       console.log(data);
     });
 
