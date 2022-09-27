@@ -1,13 +1,33 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Modal, Form } from "react-bootstrap";
+import { useEffect } from "react";
+import { io } from "socket.io-client";
+let socket;
 
 export default function CreateUser({ show, modalCloseHanlder }) {
   //   const [show, setShow] = useState(false);
   const handleClose = () => {
     modalCloseHanlder();
   };
+ const ENDPOINT="localhost:5000";
 
+ useEffect(()=>{
+   socket=io(ENDPOINT, { transports: ["websocket"] });
+   socket.on("getRooms",(rooms)=>{
+         console.log(rooms)
+   })
+   console.log(socket);
+
+
+   return () => {
+    // socket.emit("disconnect");
+    socket.off();
+  };
+
+ },[
+    ENDPOINT
+ ])
   return (
     <>
       <Modal show={show} onHide={handleClose}>
