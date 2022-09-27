@@ -2,10 +2,15 @@ import React from 'react'
 import { useState } from 'react'
 import {Button, Card ,Form} from "react-bootstrap"
 import { Link } from 'react-router-dom';
+import CreateUser from './CreateUser';
 
 export default function Join() {
     const [name,setName]=useState('');
-    const [room,setRoom]=useState("")
+    const [room,setRoom]=useState("");
+    const [show,setShow]=useState(false);
+    const modalHandler = ()=>{
+        setShow(true)
+    }
   return (
     <>
     <Card  style={{width:"500px" , height:"300px" , margin:"auto", marginTop:"5%"}}>
@@ -26,11 +31,11 @@ export default function Join() {
       <Link onClick={(e)=>!name || !room?e.preventDefault():null} to={`/chat?name=${name}&room=${room}`}>
       <Button type='submit'>Join Room </Button>
       </Link>
-      <Button style={{marginLeft:"10px"}}>Create Account </Button>
+      <Button style={{marginLeft:"10px"}} onClick={modalHandler}>Create Account </Button>
     </Form>
       
     </Card>
-    
+    <CreateUser modalHandler={modalHandler}/>
     </>
   )
 }
