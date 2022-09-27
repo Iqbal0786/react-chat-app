@@ -9,7 +9,7 @@ const Room = require("./models/room.model");
 const Chat = require("./models/chat.model");
 const cors = require("cors");
 const server = http.createServer(app); // createing server
-const io = socketio(server);
+const io = socketio(server  ,{cors: {origin: "*"}});
 app.use(cors());
 app.use(express.json());
 
