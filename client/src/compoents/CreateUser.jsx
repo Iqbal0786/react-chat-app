@@ -4,9 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 
  export default function CreateUser({show,modalCloseHanlder}) {
 //   const [show, setShow] = useState(false);
-
   const handleClose = () => {modalCloseHanlder()}
-  const handleShow = () => {}
+
 
   return (
     <>
