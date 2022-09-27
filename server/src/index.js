@@ -5,7 +5,8 @@ const connect= require("./configs/db")
 const app = express();
 const router= require("./routes/router");
 const Message= require("./models/message.model");
-const Room= require("./models/room.model")
+const Room= require("./models/room.model");
+const Chat= require("./models/chat.model")
 const cors= require("cors");
 const  server= http.createServer(app); // createing server
 const io= socketio(server);
@@ -41,6 +42,16 @@ io.on("connection",(socket)=>{
               io.emit("getRooms" , res);
          }).catch((err)=>{
             console.log(err.message)
+         })
+
+         // creating new user 
+         socket.on("createUser",(user)=>{
+            const new_user= new Chat(user);
+              new_user.save().then((res)=>{
+                console.log("new account is created");
+              }).catch((err)=>{
+                 console.log(err.message);
+              })
          })
 
    
