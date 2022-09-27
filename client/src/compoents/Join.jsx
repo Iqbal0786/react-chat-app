@@ -11,6 +11,9 @@ export default function Join() {
     const modalHandler = ()=>{
         setShow(true)
     }
+    const modalCloseHanlder=()=>{
+       setShow(false)
+    }
   return (
     <>
     <Card  style={{width:"500px" , height:"300px" , margin:"auto", marginTop:"5%"}}>
@@ -35,7 +38,7 @@ export default function Join() {
     </Form>
       
     </Card>
-    <CreateUser modalHandler={modalHandler}/>
+    <CreateUser show={show} modalCloseHanlder={modalCloseHanlder}/>
     </>
   )
 }
