@@ -7,6 +7,7 @@ let socket;
 
 export default function CreateUser({ show, modalCloseHanlder }) {
   //   const [show, setShow] = useState(false);
+  const [rooms,setRooms]=useState([])
   const handleClose = () => {
     modalCloseHanlder();
   };
@@ -14,10 +15,11 @@ export default function CreateUser({ show, modalCloseHanlder }) {
 
  useEffect(()=>{
    socket=io(ENDPOINT, { transports: ["websocket"] });
-   socket.on("getRooms",(rooms)=>{
-         console.log(rooms)
+   socket.on("getRooms",(roomData)=>{
+        //  console.log(rooms)
+        setRooms([...roomData])
    })
-   console.log(socket);
+//    console.log(socket);
 
 
    return () => {
@@ -48,9 +50,13 @@ export default function CreateUser({ show, modalCloseHanlder }) {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Room</Form.Label>
                 <Form.Select>
-                    <option value="">CodingMeme</option>
-                    <option value="">CodingMeme</option>
-                    <option value="">CodingMeme</option>
+                  {
+                    rooms.length? rooms.map((e)=>{
+                        return (
+                           <option >{e.roomTitle}</option>
+                        )
+                    }): <option>choose</option>
+                  }
                 </Form.Select>
             </Form.Group>
           </Form>
