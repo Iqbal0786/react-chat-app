@@ -27,7 +27,10 @@ export default function CreateUser({ show, modalCloseHanlder }) {
     setUserInput({...userInput ,user_id:socket.id,[name]:value});
 
   }
-
+ const createAccountHandler=(e)=>{
+         e.preventDefault();
+         
+ }
   console.log(userInput);
 
  useEffect(()=>{
@@ -87,7 +90,7 @@ export default function CreateUser({ show, modalCloseHanlder }) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={createAccountHandler}>
             Save Changes
           </Button>
         </Modal.Footer>
