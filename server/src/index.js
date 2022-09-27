@@ -54,6 +54,15 @@ io.on("connection",(socket)=>{
               })
          })
 
+         // finding chat_id by name and sending it to client
+        socket.on("getChatId" ,(name)=>{
+            Chat.find({name}).then((res)=>{
+                io.emit("chatId" , res._id)
+            }).catch((err)=>{
+                console.log(err.message);
+            })
+        })
+
    
     socket.on("disconnect" ,()=>{
         console.log("User had left !!");
