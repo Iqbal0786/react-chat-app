@@ -4,7 +4,8 @@ const http= require("http")
 const connect= require("./configs/db")
 const app = express();
 const router= require("./routes/router");
-const Message= require("./models/message.model")
+const Message= require("./models/message.model");
+const Room= require("./models/room.model")
 const cors= require("cors");
 const  server= http.createServer(app); // createing server
 const io= socketio(server);
@@ -34,6 +35,15 @@ io.on("connection",(socket)=>{
             })
          })
     })
+
+         // fetching rooms data and sending it back 
+         Room.find().then((res)=>{
+              io.emit("getRooms" , res);
+         }).catch((err)=>{
+            console.log(err.message)
+         })
+
+   
     socket.on("disconnect" ,()=>{
         console.log("User had left !!");
     })
