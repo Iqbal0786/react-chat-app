@@ -26,6 +26,7 @@ export default function Join() {
       <Link onClick={(e)=>!name || !room?e.preventDefault():null} to={`/chat?name=${name}&room=${room}`}>
       <Button type='submit'>Join Room </Button>
       </Link>
+      <Button style={{marginLeft:"10px"}}>Create Account </Button>
     </Form>
       
     </Card>
