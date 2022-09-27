@@ -7,7 +7,7 @@ let socket;
 
 export default function CreateUser({ show, modalCloseHanlder }) {
   //   const [show, setShow] = useState(false);
-  const ENDPOINT="localhost:5000";
+  const ENDPOINT="https://react-chat-app-db.herokuapp.com/";
   const [rooms,setRooms]=useState([])
   const [userInput,setUserInput]=useState({
      user_id:"",
@@ -38,7 +38,7 @@ export default function CreateUser({ show, modalCloseHanlder }) {
   console.log(userInput);
 
  useEffect(()=>{
-   socket=io(ENDPOINT, { transports: ["websocket"] });
+   socket=io(ENDPOINT);
    socket.on("getRooms",(roomData)=>{
         //  console.log(rooms)
         setRooms([...roomData])

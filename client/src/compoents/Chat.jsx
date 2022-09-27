@@ -14,7 +14,7 @@ export default function Chat() {
   const [roomData, setRoomData] = useState([]);
   const [inputMessage,setInputMessage]=useState("");
   const [chatId,setChatId]=useState("")
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://react-chat-app-db.herokuapp.com/";
   const  navigate=useNavigate()
 
   const sendMessage=(e)=>{
@@ -38,7 +38,7 @@ export default function Chat() {
 }
   // console.log(name, room);
   useEffect(() => {
-    socket = io(ENDPOINT, { transports: ["websocket"] });
+    socket = io(ENDPOINT);
     console.log(socket);
     socket.emit("join", { name, room });
     socket.on("roomsData", (data) => {
