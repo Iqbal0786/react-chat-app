@@ -7,6 +7,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import io from "socket.io-client";
 import { useState } from "react";
 import MessageText from "./MessageText";
+import ScrollToBottom from "react-scroll-to-bottom"
 let socket;
 export default function Chat() {
   const { search } = useLocation();
@@ -81,7 +82,8 @@ export default function Chat() {
         </div>:<div className="bg-light border" style={{ textAlign: "center" }}>
           Room not found !!
         </div>}
-        <Card style={{ width: "100%", height: "450px", padding: "15px"  , overflow:"auto"}}>
+        <Card style={{ width: "100%", height: "450px", padding: "15px",overflow:"auto"}}>
+          
           { roomData.length==0 && <Card.Text>could not found chat messages ???</Card.Text>}
           {
             roomData.map((msg)=>{
@@ -93,6 +95,7 @@ export default function Chat() {
                )
             })
           }
+   
         </Card>
         <Stack direction="horizontal" gap={3}>
           <Form.Control
