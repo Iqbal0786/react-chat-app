@@ -26,8 +26,10 @@ export default function Chat() {
 
     socket.on("updatedRoomsData",(data)=>{
       console.log(' new data after sending messages',data);
-      setRoomData(data)
+      setRoomData(data);
+      setInputMessage("")
     })
+    
     
 }
   // console.log(name, room);
@@ -95,6 +97,7 @@ export default function Chat() {
             onChange={(e)=>{
               setInputMessage(e.target.value)
             }}
+            value={inputMessage}
           />
           <Button style={{ width: "100px", padding: "5px" }}
            onClick={sendMessage}
