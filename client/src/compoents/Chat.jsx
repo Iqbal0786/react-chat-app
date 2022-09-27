@@ -45,11 +45,13 @@ export default function Chat() {
         
       }
       setRoomData(data);
+        console.log("room data",data);
       let [chat_id]= data.filter((user)=>{
           if(user.chat_id.userName==name){
             return user.chat_id
           }
       })
+      console.log("current user data" , chat_id)
        setChatId(chat_id.chat_id._id)
       console.log(data);
     });
@@ -58,14 +60,14 @@ export default function Chat() {
       // socket.emit("disconnect");
       socket.off();
     };
-  }, [ENDPOINT, search ]);
+  }, [ENDPOINT, name ]);
 
   // useEffect(()=>{
   //   socket.on("roomsData", (data) => {
   //     setRoomData(data);
   //   });
   // },[sendMessage])
- //console.log(chatId)
+ console.log(chatId)
   return (
     
   <>
@@ -83,7 +85,7 @@ export default function Chat() {
               let currentUser=msg.chat_id.userName===name
                return (
                   
-               <MessageText msg={msg} currentUser={currentUser}/>
+               <MessageText msg={msg} currentUser={currentUser} key={msg._id}/>
                    
                )
             })
