@@ -56,8 +56,9 @@ io.on("connection",(socket)=>{
 
          // finding chat_id by name and sending it to client
         socket.on("getChatId" ,(name)=>{
-            Chat.find({name}).then((res)=>{
-                io.emit("chatId" , res._id)
+            Chat.find({userName:name}).then((res)=>{
+                console.log(res)
+                io.emit("UserId" , res[0]._id)
             }).catch((err)=>{
                 console.log(err.message);
             })
