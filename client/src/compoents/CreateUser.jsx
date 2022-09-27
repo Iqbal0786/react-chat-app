@@ -7,11 +7,28 @@ let socket;
 
 export default function CreateUser({ show, modalCloseHanlder }) {
   //   const [show, setShow] = useState(false);
+  const ENDPOINT="localhost:5000";
   const [rooms,setRooms]=useState([])
+  const [userInput,setUserInput]=useState({
+     user_id:"",
+     userName:"",
+     roomName:""
+  })
   const handleClose = () => {
     modalCloseHanlder();
+    setUserInput({ 
+    user_id:"",
+    userName:"",
+    roomName:""})
   };
- const ENDPOINT="localhost:5000";
+
+  const inputHandler=(e)=>{
+    const {name,value}=e.target;
+    setUserInput({...userInput ,user_id:socket.id,[name]:value});
+
+  }
+
+  console.log(userInput);
 
  useEffect(()=>{
    socket=io(ENDPOINT, { transports: ["websocket"] });
@@ -19,8 +36,8 @@ export default function CreateUser({ show, modalCloseHanlder }) {
         //  console.log(rooms)
         setRooms([...roomData])
    })
-//    console.log(socket);
-
+ console.log(socket);
+ 
 
    return () => {
     // socket.emit("disconnect");
@@ -42,18 +59,23 @@ export default function CreateUser({ show, modalCloseHanlder }) {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Your Name </Form.Label>
               <Form.Control
-                type="email"
-                placeholder="Enter your name ..."
-                onChange={(e) => {}}
+                type="text"
+                placeholder="Enter your username ..."
+                onChange={inputHandler}
+                name='userName'
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Room</Form.Label>
-                <Form.Select>
+                <Form.Select
+                onChange={inputHandler}
+                   name='roomName'
+                >
+                    <option>Choose room</option>
                   {
                     rooms.length? rooms.map((e)=>{
                         return (
-                           <option >{e.roomTitle}</option>
+                           <option key={e._id} >{e.roomTitle}</option>
                         )
                     }): <option>choose</option>
                   }
