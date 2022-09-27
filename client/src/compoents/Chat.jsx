@@ -19,7 +19,7 @@ export default function Chat() {
 
   const sendMessage=(e)=>{
     e.preventDefault();
-    // setInputMessage("")
+ 
    
     socket.emit("sendMessage" ,{
      body:inputMessage,
@@ -30,6 +30,7 @@ export default function Chat() {
       console.log(' new data after sending messages',data);
        
       setRoomData(data);
+      setInputMessage("")
      
     })
    
@@ -98,10 +99,11 @@ export default function Chat() {
             id="floatingInputCustom"
             type="text"
             placeholder="type messages....."
+            value={inputMessage}
             onChange={(e)=>{
               setInputMessage(e.target.value)
             }}
-            value={inputMessage}
+            
           />
           <Button style={{ width: "100px", padding: "5px" }}
            onClick={sendMessage}
