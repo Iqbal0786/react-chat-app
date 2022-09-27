@@ -52,7 +52,7 @@ export default function CreateUser({ show, modalCloseHanlder }) {
   };
 
  },[
-    ENDPOINT
+    
  ])
   return (
     <>

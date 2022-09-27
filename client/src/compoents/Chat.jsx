@@ -19,6 +19,8 @@ export default function Chat() {
 
   const sendMessage=(e)=>{
     e.preventDefault();
+    // setInputMessage("")
+   
     socket.emit("sendMessage" ,{
      body:inputMessage,
      chat_id:chatId
@@ -26,9 +28,11 @@ export default function Chat() {
 
     socket.on("updatedRoomsData",(data)=>{
       console.log(' new data after sending messages',data);
+       
       setRoomData(data);
-      setInputMessage("")
+     
     })
+   
     
     
 }
@@ -62,10 +66,10 @@ export default function Chat() {
     //getting chatId 
     socket.on("UserId",(chatId)=>{
       setChatId(chatId)
-      console.log("chat id from db" , chatId)
+      // console.log("chat id from db" , chatId)
     })
-  },[name])
-  console.log('state chat id',chatId)
+  },[])
+  // console.log('state chat id',chatId)
   return (
     
   <>

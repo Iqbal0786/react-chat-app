@@ -83,6 +83,15 @@ router.post("/message" , async (req,res)=>{
     
 })
 
+router.delete("/message" , async(req,res)=>{
+    try {
+        const message = await Message.remove();
+        return res.status(200).send(message)
+    } catch (error) {
+        
+    }
+})
+
 // message route ends
 
 // router.delete("/rooms" , async (req,res)=>{
