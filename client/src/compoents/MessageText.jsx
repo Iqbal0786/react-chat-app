@@ -9,7 +9,7 @@ export default function MessageText({ msg, currentUser, chatInfo }) {
     <>
       {
         <>
-          <div style={{ maxWidth: "20%", margin: ` 20px 0px 10px ${rand}%` }}>
+          <div style={{ maxWidth: "20%", margin: ` 20px 0px 10px 40px` }}>
             <Card.Text
               style={{
                 backgroundColor: "gray",

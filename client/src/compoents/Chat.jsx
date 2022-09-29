@@ -8,6 +8,7 @@ import io from "socket.io-client";
 import { useState } from "react";
 import MessageText from "./MessageText";
 import ScrollToBottom from "react-scroll-to-bottom";
+import Join from "./Join";
 let socket;
 export default function Chat() {
   const { search } = useLocation();
@@ -15,7 +16,8 @@ export default function Chat() {
   const [roomData, setRoomData] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [chatId, setChatId] = useState("");
-  const ENDPOINT = "https://react-chat-app-db.herokuapp.com/";
+  const [noRecord,setNoRecord]=useState(false);
+  const ENDPOINT = "localhost:5000";
   const navigate = useNavigate();
 
   const sendMessage = (e) => {
@@ -41,11 +43,8 @@ export default function Chat() {
     socket.emit("join", { name, room });
     socket.on("roomsData", (data) => {
       if (data.length == 0) {
-        setTimeout(() => {
-          alert("Room or userName not found");
-          navigate("/");
-          return;
-        }, 2000);
+         setNoRecord(true);
+         return
       }
       setRoomData(data);
       console.log(data);
@@ -62,6 +61,7 @@ export default function Chat() {
     socket.emit("getChatId", name);
     //getting chatId
     socket.on("UserId", (chatId) => {
+  
       setChatId(chatId);
       // console.log("chat id from db" , chatId)
     });
@@ -69,7 +69,8 @@ export default function Chat() {
   // console.log('state chat id',chatId)
   return (
     <>
-      <Container className="mt-5">
+      {
+        noRecord || chatId==""?navigate("/") : <Container className="mt-5">
         <Stack gap={2}>
           <div
             className=" border"
@@ -98,8 +99,8 @@ export default function Chat() {
               <Card.Text>could not found chat messages ???</Card.Text>
             )}
             {roomData.map((msg) => {
-              let currentUser =
-                msg.chat_id.userName === name ? "You" : msg.chat_id.userName;
+              const currentUser = msg.chat_id.userName === name ? "You" : msg.chat_id.userName;
+              console.log(msg.chat_id.userName);
               let date = new Date(`${msg.createdAt}`);
               let messageDay = date.toString().split(" ")[0];
               let messageTime = date.toLocaleTimeString("en-US", {
@@ -112,7 +113,7 @@ export default function Chat() {
               return (
                 <MessageText
                   msg={msg}
-                  currentUser={currentUser}
+                  currentUser={msg.chat_id.userName}
                   chatInfo={{ messageDate, messageTime, messageDay }}
                   key={msg._id}
                 />
@@ -144,6 +145,7 @@ export default function Chat() {
           </Stack>
         </Stack>
       </Container>
+      }
     </>
   );
 }
