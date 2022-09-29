@@ -17,7 +17,7 @@ export default function Chat() {
   const [inputMessage, setInputMessage] = useState("");
   const [chatId, setChatId] = useState("");
   const [noRecord,setNoRecord]=useState(false);
-  const ENDPOINT ="localhost:5000";
+  const ENDPOINT ="https://react-chat-app-db.herokuapp.com/";
   const navigate = useNavigate();
 
   const sendMessage = (e) => {
