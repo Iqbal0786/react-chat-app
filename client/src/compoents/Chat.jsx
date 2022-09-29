@@ -24,7 +24,8 @@ export default function Chat() {
    
     socket.emit("sendMessage" ,{
      body:inputMessage,
-     chat_id:chatId
+     chat_id:chatId,
+     room
     });
 
     socket.on("updatedRoomsData",(data)=>{
@@ -44,14 +45,14 @@ export default function Chat() {
     console.log(socket);
     socket.emit("join", { name, room });
     socket.on("roomsData", (data) => {
-      if(data.length==0){
-         setTimeout(() => {
-          alert("Room or userName not found");
-          navigate('/')
-          return
-         }, 2000);
+      // if(data.length==0){
+      //    setTimeout(() => {
+      //     alert("Room or userName not found");
+      //     navigate('/')
+      //     return
+      //    }, 2000);
         
-      }
+      // }
       setRoomData(data);
       console.log(data);
     });
@@ -77,11 +78,9 @@ export default function Chat() {
   <>
     <Container className="mt-5">
       <Stack gap={3}>
-       {roomData.length ? <div className="bg-light border" style={{ textAlign: "center" }}>
-          Welcome to {roomData[0].chat_id.roomName} 
-        </div>:<div className="bg-light border" style={{ textAlign: "center" }}>
-          Room not found !!
-        </div>}
+        <div className="bg-light border" style={{ textAlign: "center" }}>
+          Welcome to {room} 😎🎉🎊🧨
+        </div>
         <Card style={{ width: "100%", height: "450px", padding: "15px",overflow:"auto"}}>
           
           { roomData.length==0 && <Card.Text>could not found chat messages ???</Card.Text>}
