@@ -77,11 +77,11 @@ export default function Chat() {
     
   <>
     <Container className="mt-5">
-      <Stack gap={3}>
-        <div className="bg-light border" style={{ textAlign: "center" }}>
+      <Stack gap={2}>
+        <div className=" border" style={{ textAlign: "center" ,backgroundColor:"#1eb282" , height:"40px" , padding:"5px"  , color:"white" , fontSize:"20px" , fontFamily:"mono-space"}}>
           Welcome to {room} 😎🎉🎊🧨
         </div>
-        <Card style={{ width: "100%", height: "450px", padding: "15px",overflow:"auto"}}>
+        <Card style={{ width: "100%", height: "450px", padding: "15px",overflow:"auto" , backgroundColor:"#08345b"}}>
           
           { roomData.length==0 && <Card.Text>could not found chat messages ???</Card.Text>}
           {
@@ -90,6 +90,7 @@ export default function Chat() {
                return (
                   
                <MessageText msg={msg} currentUser={currentUser} key={msg._id}/>
+               
                    
                )
             })
