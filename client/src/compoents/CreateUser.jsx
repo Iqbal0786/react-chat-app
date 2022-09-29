@@ -34,6 +34,7 @@ export default function CreateUser({ show, modalCloseHanlder }) {
             return 
          }
          socket.emit("createUser",userInput)
+         modalCloseHanlder();
  }
   console.log(userInput);
 
