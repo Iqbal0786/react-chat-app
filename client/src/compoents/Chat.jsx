@@ -63,6 +63,7 @@ export default function Chat() {
     };
   }, [ENDPOINT, name ]);
 
+
   useEffect(()=>{
     // emitting getChatId event
     socket.emit("getChatId" , name);
@@ -86,10 +87,17 @@ export default function Chat() {
           { roomData.length==0 && <Card.Text>could not found chat messages ???</Card.Text>}
           {
             roomData.map((msg)=>{
-              let currentUser=msg.chat_id.userName===name
+              let currentUser=msg.chat_id.userName===name?"You":msg.chat_id.userName ;
+              let date= new Date(`${msg.createdAt}`);
+               let messageDay= date.toString().split(" ")[0];
+               let messageTime=date.toLocaleTimeString('en-US',{ hour: '2-digit', minute: '2-digit' });
+               
+               let messageDate= date.toLocaleDateString('en-GB');
+              
+                
                return (
                   
-               <MessageText msg={msg} currentUser={currentUser} key={msg._id}/>
+               <MessageText msg={msg} currentUser={currentUser} chatInfo={{messageDate,messageTime,messageDay}} key={msg._id}/>
                
                    
                )
