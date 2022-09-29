@@ -38,7 +38,10 @@ io.on("connection", (socket) => {
       });
   });
   socket.on("sendMessage", (message) => {
-    const msg = new Message(message);
+    const msg = new Message({
+      body:message.body,
+      chat_id:message.chat_id
+    });
     msg.save().then(() => {
       // console.log("new message added");
       Message.find()
@@ -49,7 +52,7 @@ io.on("connection", (socket) => {
         .lean()
         .exec()
         .then((res) => {
-          io.emit("updatedRoomsData", res);
+          io.emit("updatedRoomsData", res.filter((chat)=>chat.chat_id.roomName===message.room));
         });
     });
   });
