@@ -7,54 +7,50 @@ let socket;
 
 export default function CreateUser({ show, modalCloseHanlder }) {
   //   const [show, setShow] = useState(false);
-  const ENDPOINT="https://react-chat-app-db.herokuapp.com/";
-  const [rooms,setRooms]=useState([])
-  const [userInput,setUserInput]=useState({
-     user_id:"",
-     userName:"",
-     roomName:""
-  })
+  const ENDPOINT = "https://react-chat-app-db.herokuapp.com/";
+  const [rooms, setRooms] = useState([]);
+  const [userInput, setUserInput] = useState({
+    user_id: "",
+    userName: "",
+    roomName: "",
+  });
   const handleClose = () => {
     modalCloseHanlder();
-    setUserInput({ 
-    user_id:"",
-    userName:"",
-    roomName:""})
+    setUserInput({
+      user_id: "",
+      userName: "",
+      roomName: "",
+    });
   };
 
-  const inputHandler=(e)=>{
-    const {name,value}=e.target;
-    setUserInput({...userInput ,user_id:socket.id,[name]:value});
-
-  }
- const createAccountHandler=(e)=>{
-         e.preventDefault();
-         if(userInput.name=="" || userInput.roomName==""){
-            alert("Please filled details !!")
-            return 
-         }
-         socket.emit("createUser",userInput)
-         modalCloseHanlder();
- }
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    setUserInput({ ...userInput, user_id: socket.id, [name]: value });
+  };
+  const createAccountHandler = (e) => {
+    e.preventDefault();
+    if (userInput.name == "" || userInput.roomName == "") {
+      alert("Please filled details !!");
+      return;
+    }
+    socket.emit("createUser", userInput);
+    modalCloseHanlder();
+  };
   console.log(userInput);
 
- useEffect(()=>{
-   socket=io(ENDPOINT);
-   socket.on("getRooms",(roomData)=>{
-        //  console.log(rooms)
-        setRooms([...roomData])
-   })
- console.log(socket);
- 
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.on("getRooms", (roomData) => {
+      //  console.log(rooms)
+      setRooms([...roomData]);
+    });
+    console.log(socket);
 
-   return () => {
-    // socket.emit("disconnect");
-    socket.off();
-  };
-
- },[
-    
- ])
+    return () => {
+      // socket.emit("disconnect");
+      socket.off();
+    };
+  }, []);
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -70,24 +66,21 @@ export default function CreateUser({ show, modalCloseHanlder }) {
                 type="text"
                 placeholder="Enter your username ..."
                 onChange={inputHandler}
-                name='userName'
+                name="userName"
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Room</Form.Label>
-                <Form.Select
-                onChange={inputHandler}
-                   name='roomName'
-                >
-                    <option>Choose room</option>
-                  {
-                    rooms.length? rooms.map((e)=>{
-                        return (
-                           <option key={e._id} >{e.roomTitle}</option>
-                        )
-                    }): <option>choose</option>
-                  }
-                </Form.Select>
+              <Form.Select onChange={inputHandler} name="roomName">
+                <option>Choose room</option>
+                {rooms.length ? (
+                  rooms.map((e) => {
+                    return <option key={e._id}>{e.roomTitle}</option>;
+                  })
+                ) : (
+                  <option>choose</option>
+                )}
+              </Form.Select>
             </Form.Group>
           </Form>
         </Modal.Body>
