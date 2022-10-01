@@ -101,7 +101,7 @@ export default function Chat() {
             >
               <ScrollToBottom className={ROOT_CSS}>
               {roomData.length == 0 && (
-                <Card.Text>could not found chat messages ???</Card.Text>
+                <Card.Text style={{color:"white"}}>could not found chat messages ???</Card.Text>
               )}
               {roomData.map((msg) => {
                 const currentUser =
