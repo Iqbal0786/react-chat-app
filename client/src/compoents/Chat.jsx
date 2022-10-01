@@ -18,7 +18,7 @@ export default function Chat() {
   const [inputMessage, setInputMessage] = useState("");
   const [chatId, setChatId] = useState("");
   const [noRecord,setNoRecord]=useState(false);
-  const ENDPOINT ="localhost:5000";
+  const ENDPOINT ="https://react-chat-app-db.herokuapp.com/";
   const navigate = useNavigate();
 
   const sendMessage = (e) => {
@@ -72,7 +72,7 @@ export default function Chat() {
     //   setChatId(chatId);
     //    console.log("chat id from db" , chatId)
     // });
-   axios.get(`http://localhost:5000/chats/${name}`).then((res)=>{
+   axios.get(`https://react-chat-app-db.herokuapp.com/chats/${name}`).then((res)=>{
             if(!res.data._id){
               // alert("Does not found user name ??")
               // setTimeout(()=>{

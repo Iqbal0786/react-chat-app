@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 import CreateUser from "./CreateUser";
 let socket;
 export default function Join() {
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://react-chat-app-db.herokuapp.com/";
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [rooms, setRooms] = useState("");

@@ -34,7 +34,7 @@ export default function CreateUser({ show, modalCloseHanlder }) {
       alert("Please filled details !!");
       return;
     }
-     axios.post("http://localhost:5000/chats" ,userInput).then((res)=>{
+     axios.post("https://react-chat-app-db.herokuapp.com/chats" ,userInput).then((res)=>{
          console.log("result from axios" , res)
          if(res.status==201){
         alert("Account created Successfully !!")
