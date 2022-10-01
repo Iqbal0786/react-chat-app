@@ -65,36 +65,8 @@ io.on("connection", (socket) => {
       console.log(err.message);
     });
 
-  // creating new user
-  socket.on("createUser", (user) => {
-    const isAllreadyUser= Chat.find({userName:user.userName , roomName:user.roomName}).lean().exec();
-    if(isAllreadyUser.length){
-      console.log("user allready exist in the room");
-      socket.emit("message" ,"user allready exist in the room");
-      return 
-    }
-    const new_user = new Chat(user);
-    new_user
-      .save()
-      .then((res) => {
-        console.log("new account is created");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  });
+  
 
-  // // finding chat_id by name and sending it to client
-  // socket.on("getChatId", (name) => {
-  //   Chat.find({ userName: name })
-  //     .then((res) => {
-  //       // console.log(res)
-  //       io.emit("UserId", res[0]._id);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // });
 
   socket.on("disconnect", () => {
     console.log("User had left !!");
