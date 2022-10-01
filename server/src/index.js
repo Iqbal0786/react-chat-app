@@ -65,8 +65,6 @@ io.on("connection", (socket) => {
       console.log(err.message);
     });
 
-  
-
 
   socket.on("disconnect", () => {
     console.log("User had left !!");
