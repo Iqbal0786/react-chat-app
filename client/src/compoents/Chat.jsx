@@ -21,7 +21,7 @@ export default function Chat() {
   const navigate = useNavigate();
   const ROOT_CSS = css({
     height: "100%",
-    width: "100%"
+    width: "100%",
   })
   const sendMessage = (e) => {
     e.preventDefault();
