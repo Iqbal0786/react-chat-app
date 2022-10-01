@@ -43,10 +43,26 @@ router.get("/chats" , async (req,res)=>{
     }
     
 })
+router.get("/chats/:name" , async (req,res)=>{
+    try {
+        const singleChat= await Chat.findOne({userName:req.params.name}).lean().exec();
+        return res.status(200).send(singleChat)
+    } catch (error) {
+        res.status(400).send({message:error.message})
+    }
+    
+})
 router.post("/chats" , async (req,res)=>{
     try {
         
+        const isAllreadyUser= await Chat.find({userName:req.body.userName,roomName:req.body.roomName}).lean().exec();
+        console.log(isAllreadyUser);
+        if(isAllreadyUser.length){
+            res.send({message:"user allready exist in the room"});
+            return 
+        }
         const room= await Chat.create(req.body);
+       
         return res.status(201).send(room)
     } catch (error) {
         console.log(error.message)
@@ -94,17 +110,28 @@ router.delete("/message" , async(req,res)=>{
 
 // message route ends
 
-// router.delete("/rooms" , async (req,res)=>{
-//     try {
+router.delete("/rooms" , async (req,res)=>{
+    try {
         
-//         const room= await Room.remove({});
-//         return res.status(201).send(room)
-//     } catch (error) {
-//         console.log(error.message)
-//         res.status(400).send({message:error.message})
-//     }
+        const room= await Room.deleteMany({});
+        return res.status(201).send(room)
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).send({message:error.message})
+    }
     
-// })
+})
+router.delete("/chats" , async (req,res)=>{
+    try {
+        
+        const room= await Chat.deleteMany({});
+        return res.status(201).send(room)
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).send({message:error.message})
+    }
+    
+})
 
 
 

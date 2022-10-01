@@ -12,7 +12,6 @@ const server = http.createServer(app); // createing server
 const io = socketio(server  ,{cors: {origin: "*"}});
 app.use(cors());
 app.use(express.json());
-
 app.use(router);
 
 io.on("connection", (socket) => {
@@ -42,8 +41,8 @@ io.on("connection", (socket) => {
       body:message.body,
       chat_id:message.chat_id
     });
-    msg.save().then(() => {
-      // console.log("new message added");
+    msg.save().then((res) => {
+       console.log("new message added" , res);
       Message.find()
         .populate({
           path: "chat_id",
@@ -68,6 +67,12 @@ io.on("connection", (socket) => {
 
   // creating new user
   socket.on("createUser", (user) => {
+    const isAllreadyUser= Chat.find({userName:user.userName , roomName:user.roomName}).lean().exec();
+    if(isAllreadyUser.length){
+      console.log("user allready exist in the room");
+      socket.emit("message" ,"user allready exist in the room");
+      return 
+    }
     const new_user = new Chat(user);
     new_user
       .save()
@@ -79,17 +84,17 @@ io.on("connection", (socket) => {
       });
   });
 
-  // finding chat_id by name and sending it to client
-  socket.on("getChatId", (name) => {
-    Chat.find({ userName: name })
-      .then((res) => {
-        // console.log(res)
-        io.emit("UserId", res[0]._id);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  });
+  // // finding chat_id by name and sending it to client
+  // socket.on("getChatId", (name) => {
+  //   Chat.find({ userName: name })
+  //     .then((res) => {
+  //       // console.log(res)
+  //       io.emit("UserId", res[0]._id);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // });
 
   socket.on("disconnect", () => {
     console.log("User had left !!");
