@@ -17,7 +17,6 @@ export default function Chat() {
   const [roomData, setRoomData] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [chatId, setChatId] = useState("");
-  const [noRecord,setNoRecord]=useState(false);
   const ENDPOINT ="https://react-chat-app-db.herokuapp.com/";
   const navigate = useNavigate();
 
@@ -44,12 +43,8 @@ export default function Chat() {
     // console.log(socket.connected);
     socket.emit("join", { name, room });
     socket.on("roomsData", (data) => {
-      if (data.length == 0) {
-         setNoRecord(true);
-         return
-      }
       setRoomData(data);
-      console.log(data);
+      // console.log(data);
     });
 
     return () => {
@@ -59,26 +54,10 @@ export default function Chat() {
   }, [ENDPOINT, name]);
 
   useEffect(() => {
-    // // emitting getChatId event
-    // socket.emit("getChatId", name);
-    // //getting chatId
-    // socket.on("UserId", (chatId) => {
 
-    //   if(chatId===""){
-    //     navigate("/")
-    //     return 
-    //   }
-      
-    //   setChatId(chatId);
-    //    console.log("chat id from db" , chatId)
-    // });
    axios.get(`https://react-chat-app-db.herokuapp.com/chats/${name}`).then((res)=>{
             if(!res.data._id){
-              // alert("Does not found user name ??")
-              // setTimeout(()=>{
-              //   navigate("/")
-                
-              // },2000)
+        
               navigate("/")
            
             }
@@ -88,7 +67,7 @@ export default function Chat() {
    })
 
   }, [name]);
-  console.log(`chat id of user ${name} is ${chatId}`)
+  // console.log(`chat id of user ${name} is ${chatId}`)
   return (
     <>
       {
