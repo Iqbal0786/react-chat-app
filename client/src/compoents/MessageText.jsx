@@ -1,14 +1,17 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+
 export default function MessageText({ msg, currentUser, chatInfo }) {
   let range = { min: 10, max: 20 };
   let delta = range.max - range.min;
-
+  
   const rand = Math.round(range.min + Math.random() * delta);
   return (
+
     <>
       {
         <>
+    
           <div style={{ maxWidth: "20%", margin: ` 20px 0px 10px 40px` }}>
             <Card.Text
               style={{
@@ -44,6 +47,7 @@ export default function MessageText({ msg, currentUser, chatInfo }) {
               {`${chatInfo.messageDay}  ${chatInfo.messageTime}   ${chatInfo.messageDate}`}
             </span>
           </div>
+      
         </>
       }
     </>
