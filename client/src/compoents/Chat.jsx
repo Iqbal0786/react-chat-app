@@ -8,7 +8,7 @@ import io from "socket.io-client";
 import { useState } from "react";
 import MessageText from "./MessageText";
 import ScrollToBottom from "react-scroll-to-bottom";
-import Join from "./Join";
+import {css} from "@emotion/css"
 import axios from "axios";
 let socket;
 export default function Chat() {
@@ -19,7 +19,10 @@ export default function Chat() {
   const [chatId, setChatId] = useState("");
   const ENDPOINT = "https://react-chat-app-db.herokuapp.com/";
   const navigate = useNavigate();
-
+  const ROOT_CSS = css({
+    height: "100%",
+    width: "100%"
+  })
   const sendMessage = (e) => {
     e.preventDefault();
     const chatBody = {
@@ -86,15 +89,17 @@ export default function Chat() {
             >
               Welcome to {room} 😎🎉🎊🧨
             </div>
+   
             <Card
               style={{
                 width: "100%",
                 height: "450px",
                 padding: "15px",
-                overflow: "auto",
+                // overflow: "auto",
                 backgroundColor: "#08345b",
               }}
             >
+              <ScrollToBottom className={ROOT_CSS}>
               {roomData.length == 0 && (
                 <Card.Text>could not found chat messages ???</Card.Text>
               )}
@@ -120,6 +125,7 @@ export default function Chat() {
                   />
                 );
               })}
+              </ScrollToBottom>
             </Card>
             <Stack direction="horizontal" gap={3}>
               <Form.Control
