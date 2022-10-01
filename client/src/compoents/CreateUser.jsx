@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import { Modal, Form } from "react-bootstrap";
 import { useEffect } from "react";
 import { io } from "socket.io-client";
+import axios from "axios"
 let socket;
 
 export default function CreateUser({ show, modalCloseHanlder }) {
@@ -33,7 +34,15 @@ export default function CreateUser({ show, modalCloseHanlder }) {
       alert("Please filled details !!");
       return;
     }
-    socket.emit("createUser", userInput);
+     axios.post("http://localhost:5000/chats" ,userInput).then((res)=>{
+         console.log("result from axios" , res)
+         if(res.status==201){
+        alert("Account created Successfully !!")
+         }
+         else{
+           alert(res.data.message)
+         }
+     })
     modalCloseHanlder();
   };
   console.log(userInput);
