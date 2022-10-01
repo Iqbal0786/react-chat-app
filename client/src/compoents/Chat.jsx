@@ -9,6 +9,7 @@ import { useState } from "react";
 import MessageText from "./MessageText";
 import ScrollToBottom from "react-scroll-to-bottom";
 import Join from "./Join";
+import axios from "axios";
 let socket;
 export default function Chat() {
   const { search } = useLocation();
@@ -17,17 +18,18 @@ export default function Chat() {
   const [inputMessage, setInputMessage] = useState("");
   const [chatId, setChatId] = useState("");
   const [noRecord,setNoRecord]=useState(false);
-  const ENDPOINT ="https://react-chat-app-db.herokuapp.com/";
+  const ENDPOINT ="localhost:5000";
   const navigate = useNavigate();
 
   const sendMessage = (e) => {
     e.preventDefault();
-
-    socket.emit("sendMessage", {
-      body: inputMessage,
-      chat_id: chatId,
-      room,
-    });
+  const chatBody={
+    body: inputMessage,
+    chat_id: chatId,
+    room,
+  };
+  console.log("sender chat body" ,chatBody)
+    socket.emit("sendMessage", chatBody);
 
     socket.on("updatedRoomsData", (data) => {
       console.log(" new data after sending messages", data);
@@ -39,7 +41,7 @@ export default function Chat() {
   // console.log(name, room);
   useEffect(() => {
     socket = io(ENDPOINT);
-    console.log(socket);
+    // console.log(socket.connected);
     socket.emit("join", { name, room });
     socket.on("roomsData", (data) => {
       if (data.length == 0) {
@@ -57,20 +59,40 @@ export default function Chat() {
   }, [ENDPOINT, name]);
 
   useEffect(() => {
-    // emitting getChatId event
-    socket.emit("getChatId", name);
-    //getting chatId
-    socket.on("UserId", (chatId) => {
-  
-      setChatId(chatId);
-      // console.log("chat id from db" , chatId)
-    });
-  }, []);
-  // console.log('state chat id',chatId)
+    // // emitting getChatId event
+    // socket.emit("getChatId", name);
+    // //getting chatId
+    // socket.on("UserId", (chatId) => {
+
+    //   if(chatId===""){
+    //     navigate("/")
+    //     return 
+    //   }
+      
+    //   setChatId(chatId);
+    //    console.log("chat id from db" , chatId)
+    // });
+   axios.get(`http://localhost:5000/chats/${name}`).then((res)=>{
+            if(!res.data._id){
+              // alert("Does not found user name ??")
+              // setTimeout(()=>{
+              //   navigate("/")
+                
+              // },2000)
+              navigate("/")
+           
+            }
+            setChatId(res.data._id)
+   }).catch((err)=>{
+    console.log(err)
+   })
+
+  }, [name]);
+  console.log(`chat id of user ${name} is ${chatId}`)
   return (
     <>
       {
-        noRecord || chatId==""?navigate("/") : <Container className="mt-5">
+       <Container className="mt-5">
         <Stack gap={2}>
           <div
             className=" border"
@@ -100,7 +122,7 @@ export default function Chat() {
             )}
             {roomData.map((msg) => {
               const currentUser = msg.chat_id.userName === name ? "You" : msg.chat_id.userName;
-              console.log(msg.chat_id.userName);
+              // console.log(msg.chat_id.userName);
               let date = new Date(`${msg.createdAt}`);
               let messageDay = date.toString().split(" ")[0];
               let messageTime = date.toLocaleTimeString("en-US", {
@@ -113,7 +135,7 @@ export default function Chat() {
               return (
                 <MessageText
                   msg={msg}
-                  currentUser={msg.chat_id.userName}
+                  currentUser={currentUser}
                   chatInfo={{ messageDate, messageTime, messageDay }}
                   key={msg._id}
                 />
