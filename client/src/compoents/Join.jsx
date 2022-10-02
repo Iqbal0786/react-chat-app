@@ -4,6 +4,7 @@ import { Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { io } from "socket.io-client";
 import CreateUser from "./CreateUser";
+import "../index.css"
 let socket;
 export default function Join() {
   const ENDPOINT = "https://react-chat-app-db.herokuapp.com/";
@@ -40,11 +41,12 @@ export default function Join() {
           margin: "auto",
           marginTop: "5%",
         }}
+        className="join-bg"
       >
         <Card
           Hearder
           as={"h5"}
-          style={{ textAlign: "center", color: "#3da13c" }}
+          style={{ textAlign: "center", color: "#3da13c" , backgroundColor:"transparent" ,marginTop:"5px" }}
         >
           Let's Talk{" "}
         </Card>
