@@ -10,6 +10,7 @@ import MessageText from "./MessageText";
 import ScrollToBottom from "react-scroll-to-bottom";
 import {css} from "@emotion/css"
 import axios from "axios";
+import "../index.css"
 let socket;
 export default function Chat() {
   const { search } = useLocation();
@@ -76,7 +77,7 @@ export default function Chat() {
         <Container className="mt-5">
           <Stack gap={2}>
             <div
-              className=" border"
+              className=" "
               style={{
                 textAlign: "center",
                 backgroundColor: "#1eb282",
@@ -85,6 +86,8 @@ export default function Chat() {
                 color: "white",
                 fontSize: "20px",
                 fontFamily: "mono-space",
+                borderRadius:"7px"
+                
               }}
             >
               Welcome to {room} 😎🎉🎊🧨
@@ -98,6 +101,7 @@ export default function Chat() {
                 // overflow: "auto",
                 backgroundColor: "#08345b",
               }}
+              className='chat-bg'
             >
               <ScrollToBottom className={ROOT_CSS}>
               {roomData.length == 0 && (
