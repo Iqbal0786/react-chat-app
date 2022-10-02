@@ -5,9 +5,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("https://wallpaperaccess.com/full/1288076.jpg");
+  background-size: contain;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.join-bg{
+    background-image: url("https://wallery.app/dufovot/moon-wallpaper-500x667.jpg");
+  background-size: contain;
+  color: white;
+}
+.chat-bg{
+  background-image: url("https://bestwallpapers.net/wp-content/uploads/2021/01/Best-Background-Wallpapers-for-Telegram-App.jpg");
+  background-size: contain;
+  
 }

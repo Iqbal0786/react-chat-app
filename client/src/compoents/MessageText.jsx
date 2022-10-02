@@ -15,7 +15,7 @@ export default function MessageText({ msg, currentUser, chatInfo }) {
           <div style={{ maxWidth: "20%", margin: ` 20px 0px 10px 40px` }}>
             <Card.Text
               style={{
-                backgroundColor: "gray",
+                backgroundColor: "#4285f4",
                 color: "white",
                 padding: "5px",
                 borderRadius: "0px 20px 0px 20px",
@@ -26,9 +26,9 @@ export default function MessageText({ msg, currentUser, chatInfo }) {
             </Card.Text>
             <span
               style={{
-                fontWeight: "400",
+                fontWeight: "500",
                 fontFamily: "mono-space",
-                color: "#e84c89",
+                color: "#ffff00",
               }}
             >
               {" "}
